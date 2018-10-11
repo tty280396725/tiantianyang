@@ -1,0 +1,74 @@
+{extend name="public/base" /}
+{block name="title"}<title>{if condition="ACTION_NAME=='create'"}新增{else/}编辑{/if}</title>{/block}
+
+{block name="pjax_container"}
+<?php
+    $titleTypeName = ACTION_NAME=='create'? '新增' : '编辑';
+?>
+<section class="content-header">
+    <h1>{$titleTypeName}管理员</h1>
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-dashboard"></i> {$titleTypeName}管理员</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" method="POST" action="{'/'.MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME}" onsubmit="return false" >
+                <input type="hidden" name="id" value="{$info.id|default=0}" />
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab1" data-toggle="tab">管理员信息</a>
+                        </li>
+                        <li class="pull-right"><a href="javascript:history.back(-1)" class="btn btn-sm" style="padding:10px 2px;"><i class="fa fa-list"></i> 返回</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            {if condition="ACTION_NAME=='create'"}
+
+                            {include file="form/input" title="账号" name="account"/}
+                            {include file="form/input" title="密码" name="password_original"/}
+                            {/if}
+
+                            {include file="form/input" title="名称" name="name"/}
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">角色</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select2" name="role_id" style="width:100%;">
+                                        <option value="0">超级管理员</option>
+                                        {volist name="list" id="v"}
+                                        <option {if condition="isset($info['role_id']) && $info['role_id']==$v['id']"}selected="selected" {/if}value="{$v['id']}">{$v["name"]}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {include file="form/switch" title="状态" name="status"/}
+                            {include file="form/upload" title="头像" name="avatar" data="isset($info['avatar']) ? $info['avatar'] : ''" maxNum="1"/}
+
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-7">
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-info pull-right submits" data-loading-text="&lt;i class='fa fa-spinner fa-spin '&gt;&lt;/i&gt; 提交">提交</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script type="application/javascript">
+$(document).ready(function () {
+    /*ajax页面加载icheck，有该控件的页面才需要*/
+    $(".select2").select2({language:"zh-CN"});
+})
+</script>
+{/block}

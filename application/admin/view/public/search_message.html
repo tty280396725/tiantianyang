@@ -1,0 +1,32 @@
+<div class="" style="top:10px;">
+    <form action="{:search_url('search')}" method="GET" pjax-search="">
+        <div class="" style="">
+            <div class="leixin" style="overflow: hidden; display: inline-block">
+                <label style="margin-bottom:0;" for="">开始时间</label>
+                <input class="timepicker" name="s_time" value="{:input('get.s_time')}" placeholder="开始时间"  style="margin: 0px 5px;padding-left: 3px;border: 1px solid #ccc;height: 28px;border-radius: 3px;" AUTOCOMPLETE="off">
+                <label style="margin-bottom: 0;" for="">结束时间</label>
+                <input class="timepicker" name="e_time" value="{:input('get.e_time')}" placeholder="结束时间" style="margin: 0px 5px;padding-left: 3px;border: 1px solid #ccc;height: 28px;border-radius: 3px;" AUTOCOMPLETE="off">
+            </div>
+            <!--<input type="text" name="search" class="form-control" value="{:input('get.search')}" placeholder="{$placeHolderSearch|default='搜索'}" />-->
+            <!--<div class="input-group-btn"><button type="submit" class="btn btn-sm btn-default sreachs"><i class="fa fa-search"></i></button></div>-->
+
+            <!--<div style="width: 247px;float: left;">-->
+                <input type="text" name="search" style="display: inline-block;width: 200px;margin: 0px 5px;padding-left: 3px;border: 1px solid #ccc;height: 28px;border-radius: 3px;vertical-align: top;" value="{:input('get.search')}" placeholder="{$placeHolderSearch|default='搜索'}" />
+                <div class="input-group-btn" style="display: inline-block;vertical-align: top;">
+                    <button type="submit" class="btn btn-default sreachs"><i class="fa fa-search"></i>查询</button>
+                    <!--<button type="submit" style="height: 28px;margin-bottom: 2px;" class="btn btn-sm btn-default sreachs"><i class="fa fa-search"></i></button>-->
+                </div>
+
+
+            <!--</div>-->
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.timepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',   //YYYY-MM-DD HH:mm:ss
+            locale: moment.locale('zh-cn')
+        });
+    })
+</script>

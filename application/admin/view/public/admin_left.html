@@ -1,0 +1,56 @@
+{/*左侧菜单开始*/}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left image" style="height:47px;">
+                <img src="{:session('user_info')['avatar']}" class="img-circle" alt="{:session('user_info')['name']}">
+            </div>
+            <div class="pull-left info">
+                <p>{:session('user_info')['name']}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i>在线</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="header">菜单</li>
+            <li>
+                <a href="{:url('Index/index')}">
+                    <i class=""></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <?php $hasPermissionsIdsArr = array_keys($hasPermissionsArr);?>
+            {volist name="treeMenu" id="menuInfo" key="k"}
+            {if condition="$menuInfo['status'] && (empty($hasPermissionsArr) || in_array($menuInfo['id'],$hasPermissionsIdsArr))"}
+                <?php if(empty($menuInfo["list"]) || array_sum(array_column($menuInfo["list"], "status"))<1) { ?>
+                <li>
+                    <a href="{:url(MODULE_NAME.'/'.$menuInfo.url)}">
+                        <i class="{$menuInfo.icon}"></i>
+                        <span>{$menuInfo.title}</span>
+                    </a>
+                </li>
+                <?php }else{ ?>
+                <li class="treeview {if condition="in_array(CONTROLLER_NAME.'/index', (array_column($menuInfo.list, 'url')))"} active{/if}">
+                    <a href="javascript:void(0);">
+                        <i class="{$menuInfo.icon | default=''}"></i>
+                        <span>{$menuInfo.title}</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {volist name="menuInfo.list" id="v"}
+                        {if condition="$v['status'] && (empty($hasPermissionsArr) || in_array($menuInfo['id'],$hasPermissionsIdsArr))"}
+                        <li>
+                            <a href="{:url(MODULE_NAME.'/'.$v.url)}"><i class="{$v.icon}"></i>{$v.title}</a>
+                        </li>
+                        {/if}
+                        {/volist}
+                    </ul>
+                </li>
+                <?php } ?>
+            {/if}
+            {/volist}
+        </ul>
+    </section>
+</aside>
+{/*左侧菜单结束*/}

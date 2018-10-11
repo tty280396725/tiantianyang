@@ -1,0 +1,32 @@
+{extend name="public/base" /}
+
+{block name="title"}<title>后台首页</title>{/block}
+
+{block name="pjax_container"}
+<section class="content-header">
+    <h1>后台首页</h1>
+    <ol class="breadcrumb">
+        <li class="active"><i class="fa fa-dashboard"></i> 后台首页</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-5 col-sm-5 col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{$Think.lang.system_config}</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-hover">
+                        {volist name="systemConfig" id="vo" }
+                        <tr>
+                            <td>{$key}：{$vo}</td>
+                        </tr>
+                        {/volist}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{/block}
